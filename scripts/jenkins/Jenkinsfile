@@ -281,8 +281,7 @@ def generateMainBuildStages() {
     tasks << buildAndTest(
         "debian-stable-full",
         DOCKER_IMAGES.stretch,
-        CMAKE_FLAGS_BUILD_ALL +
-            CMAKE_FLAGS_COVERAGE,
+        CMAKE_FLAGS_BUILD_ALL + CMAKE_FLAGS_COVERAGE,
         [TEST.ALL, TEST.MEM, TEST.INSTALL]
     )
     tasks << buildIcheck()
