@@ -359,8 +359,8 @@ def generateFullBuildStages() {
         ],
         [TEST.ALL, TEST.MEM],
         [
-            "XDG_CONFIG_HOME=${WORKSPACE}/xdg/user",
-            "XDG_CONFIG_DIRS=${WORKSPACE}/xdg/system"
+            'XDG_CONFIG_HOME=${WORKSPACE}/xdg/user',
+            'XDG_CONFIG_DIRS=${WORKSPACE}/xdg/system'
         ]
     )
     tasks << buildAndTest(
