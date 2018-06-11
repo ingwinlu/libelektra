@@ -615,7 +615,8 @@ def buildAndTest(testName, image, extraCmakeFlags = [:],
     return [(testName): {
         stage(testName) {
             withDockerEnv(image, dockerOpts) {
-                withEnv(extraEnvVars.collect({"$it"})) {
+                def envVars = extraEnvVars.collect {it}
+                withEnv(envVars) {
                     try {
                         dir('build') {
                             deleteDir()
