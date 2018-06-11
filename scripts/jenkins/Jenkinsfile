@@ -1116,5 +1116,7 @@ def abortPreviousRun() {
  */
 def resolveTemplate(tmplStr) {
     def templ = new groovy.text.StreamingTemplateEngine().createTemplate(tmplStr)
-    return templ.make(env.getEnvironment())
+    def output = templ.make(env.getEnvironment())
+    echo output
+    return output
 }
