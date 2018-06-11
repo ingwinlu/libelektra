@@ -363,8 +363,8 @@ def generateFullBuildStages() {
         ],
         [TEST.ALL, TEST.MEM],
         [
-            'XDG_CONFIG_HOME=${WORKSPACE}/xdg/user',
-            'XDG_CONFIG_DIRS=${WORKSPACE}/xdg/system'
+            'XDG_CONFIG_HOME=${env.WORKSPACE}/xdg/user',
+            'XDG_CONFIG_DIRS=${env.WORKSPACE}/xdg/system'
         ]
     )
     /*
@@ -1124,7 +1124,7 @@ def resolveTemplate(tmplStr) {
     getBinding().variables.each {
         println it
     }
-    def output = templ.make(env.getEnvironment())
+    def output = templ.make(getBinding().variables)
     echo output
     return output
 }
