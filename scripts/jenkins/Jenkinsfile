@@ -602,11 +602,14 @@ def buildAndTest(testName, image, extraCmakeFlags = [:],
     def testAll = tests.contains(TEST.ALL)
     def install = tests.contains(TEST.INSTALL)
 
+    // evaluate/expand env vars
+    def envVars = extraEnvVars.collect { "$it" }
+
     // set dockerOpts
     def dockerOpts = [DOCKER_OPTS.MOUNT_MIRROR]
     return [(testName): {
         stage(testName) {
-            withEnv(extraEnvVars) {
+            withEnv(envVars) {
                 withDockerEnv(image, dockerOpts) {
                     try {
                         dir('build') {
