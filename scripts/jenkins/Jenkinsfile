@@ -1110,11 +1110,11 @@ def abortPreviousRun() {
 }
 
 /* Treats tmplStr as a Template replacing variables with
- * values from env
+ * values from the current binding
  * @param tmplStr a groovy template in string form
  * @return the tmplStr with all variables resolved
  */
 def resolveTemplate(tmplStr) {
     def templ = new groovy.text.StreamingTemplateEngine().createTemplate(tmplStr)
-    return templ.make(env)
+    return templ.make(getBinding())
 }
