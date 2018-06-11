@@ -615,6 +615,7 @@ def buildAndTest(testName, image, extraCmakeFlags = [:],
     return [(testName): {
         stage(testName) {
             withDockerEnv(image, dockerOpts) {
+                println env.WORKSPACE
                 def envVars = extraEnvVars.collect {resolveTemplate(it)}
                 println envVars
                 withEnv(envVars) {
