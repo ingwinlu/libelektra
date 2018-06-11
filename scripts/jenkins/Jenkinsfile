@@ -363,8 +363,8 @@ def generateFullBuildStages() {
         ],
         [TEST.ALL, TEST.MEM],
         [
-            "XDG_CONFIG_HOME=${ -> WORKSPACE}/xdg/user",
-            "XDG_CONFIG_DIRS=${ -> WORKSPACE}/xdg/system"
+            'XDG_CONFIG_HOME=${WORKSPACE}/xdg/user',
+            'XDG_CONFIG_DIRS=${WORKSPACE}/xdg/system'
         ]
     )
     /*
@@ -615,8 +615,8 @@ def buildAndTest(testName, image, extraCmakeFlags = [:],
     return [(testName): {
         stage(testName) {
             withDockerEnv(image, dockerOpts) {
-                def envVars = extraEnvVars.collect {it}
-                envVars.each { println it }
+                def envVars = extraEnvVars.collect {resolveTemplate(it)}
+                println envVars
                 withEnv(envVars) {
                     try {
                         dir('build') {
@@ -1107,4 +1107,14 @@ def abortPreviousRun() {
             )
         )
     }
+}
+
+/* Treats tmplStr as a Template replacing variables with
+ * values from env
+ * @param tmplStr a groovy template in string form
+ * @return the tmplStr with all variables resolved
+ */
+def resolveTemplate(tmplStr) {
+    def templ = new groovy.text.StreamingTemplateEngine().createTemplate(tmplStr)
+    return templ.make(env)
 }
