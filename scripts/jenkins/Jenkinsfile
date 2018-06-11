@@ -615,7 +615,8 @@ def buildAndTest(testName, image, extraCmakeFlags = [:],
     return [(testName): {
         stage(testName) {
             withDockerEnv(image, dockerOpts) {
-                def envVars = extraEnvVars.collect {it as String} as List<String>
+                def envVars = extraEnvVars.collect {it}
+                envVars.each { println it }
                 withEnv(envVars) {
                     try {
                         dir('build') {
